@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> {{ article.title }}  </h1>
+
+<p>
+    시간: {{article.time}}
+</p>
+
+<p>
+   장소: {{article.place}}
+</p>
+
+<p>
+    메모: {{article.memo}}
+</p>
+
+<div>
+    <a href="/day/{{ article.pk }}/delete/">
+
+        <button onclick="return confirm('Are you sure to delete?')"> 
+            delete </button>
+
+    </a>
+
+</div>
+
+<div>
+    <a href="/day/{{ article.pk }}/edit/">
+
+        <button> 
+            edit </button>
+
+    </a>
+
+</div>
+
+
+
+{% endblock content %}

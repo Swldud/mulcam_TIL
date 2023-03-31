@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>leaning_CSS</title>
+</head>
+
+<style>
+    p { 
+        color: blueviolet;
+        font-size: 24px;
+        /* 바깥의 p는 모든 <p> 태그에 대해서 라는 의미 */
+    }
+
+    .container {color: blue;
+            font-size: 20px;}
+    
+    .red {color: red}
+
+    .green {color: green;}
+
+    .container_2 {
+        /* 상하좌우 전체 30px */
+        margin: 30px;
+            /* margin: auto; 를 쓰면 자동 가운데 정렬 */
+            /* 상, 우, 하, 좌 */
+            padding: 10px, 20px, 30px, 40px ;
+            background-color: yellowgreen;
+            color: blueviolet;
+            border: 20px solid olive;
+    }
+
+</style>
+
+<body>
+    <h1> CSS </h1>
+    <br>
+
+    <h2> style 태그의 사용</h2>
+    
+    <li>태그 안에서 스타일 직접 적용하기</li>
+    <p style="font-size: 32px; color: aquamarine;">Inline CSS</p>
+
+    <li> head 태그에 style 태그 활용 </li>
+    <style> 
+        .blue-md{
+            color: blue;
+            font-size: 25px; }
+    </style>
+    <p class="blue-md"> Head style tag</p>
+    <p class="blue-md" href ="#"> This is link </p>
+
+    <li>  별도의 분리된 .css 파일에서 형식 가져오기 </li>
+        다른 css 파일을 만들어 style을 만든 뒤, 태그의 이름을 붙인다.
+        여기서는 파일은 같은 폴더에 들어있는 00_intro.css 이며, 태그의 이름이 green-sm 이다.
+        
+        <link rel="stylesheet" href="./00_intro.css" >
+        <p class ="green-sm">Seperated .css File</p>
+
+
+    <h1>Selector</h1>
+    <button> Hi </button>
+    <div class="container">
+        이 부분은 태그 없이 div 안에 있고, class는 container입니다. 때문에 container가 설정한 색인 파란색으로 입력됩니다.
+        <p class= "green"> 이부분은 p 태그 안에 작성했지만, class를 green으로 주었기 때문에, class를 우선시 하여 초록색으로 입력됩니다. </p>
+        <p class= "red" > 이부분은 p 태그 안에 작성했지만, class를 red로 주었기 때문에, class를 우선시 하여 빨간색으로 입력됩니다. </p> 
+
+    
+    <h1> box </h1>
+    <p class= "container_2"> yellowgreen은 background, olive를 기준으로 안은 padding 밖은 margin </p> 
+
+
+</body>
+
+<hr>
+
+</html>

@@ -1,0 +1,27 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>day - Index</h1>
+
+<ul>
+
+    {% for article in articles %}
+    
+    <li>
+        <a href="/day/{{ article.pk }}/">
+
+            {{ article.title }}
+        </a>
+    
+
+    </li>
+    
+    {% endfor %}
+
+</ul>
+
+
+{% endblock content %}

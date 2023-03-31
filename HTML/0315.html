@@ -1,0 +1,156 @@
+<!-- 기본적인 html 기능의 정리 -->
+<!-- 얘는 crtl + / 를 누르면 생성되는 주석 -->
+
+<!-- !를 작성하면 기본적으로 갖춰야할 양식이 뜸 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+
+<body>
+    <title> 
+        head 안의 title은 제목으로 출력됩니다.
+    </title>
+
+    <!-- 문서에 표시되는 데이터는 body 안에 작성합니다. -->
+    <h1> HTML </h1>
+    이것은 body 안에 쓴 글입니다. 저는 지금 배가 고픕니다.
+
+
+    <!-- h1~6은 Markdown에서의 #과 같은 역할을 합니다.
+        글씨 크기만 달라지는게 아니라, 하위 내용을 작성할 때 사용하세요. -->
+    <h1>This is heading 1</h1>
+    <h2> headig 2 </h2>
+    <h3> headig 3 </h3>
+    <h4> headig 4 </h4>
+    <h5> headig 5 </h5>
+    <h6> headig 6 </h6>
+
+    <h2> 문단 만들기 </h2>
+    <!-- p는 문단을 만듭니다. -->
+    <p> 자꾸 Markdown에서 쓰던 것들로 HTML을 쓰려고 해서 계속 고쳐쓰고 있습니다. 미치겠네 </p>
+
+    <p> 한 줄 더 써볼게요. 온건한 제 친구가 화가 나있네요. 또 사립대학이 사립사립했나봅니다.</p>
+
+    <h2> 글씨 강조하기 </h2>
+    <p> 
+        <!-- 글씨를 강조합니다. -->
+        이 부분은 <strong>강조1</strong>하고
+        이 부분은 <em>강조2</em>하고
+        <br>    <!-- 줄 바꿈을 하겠다.(line_break)  -->
+        이 부분은 <b>굵게</b>하고
+        이 부분은 <i>기울</i>이자.
+        b와 i보다는 신식인 strong과 em을 주로 씁니다
+
+    </p>
+    <h2> 줄바꿈 및 가로줄 </h2>
+    <hr>  <!-- <hr>은 가로줄입니다. 닫지 않습니다.  -->
+
+    <p>이것은 줄바꿈을 했다는 사실을
+        <br>  <!-- <br>은 줄 바꿈입니다. 닫지 않습니다.(line_break)  -->
+        티내기 위한 글입니다.
+    </p>
+
+    <h2> 코드 집어넣기 </h2>
+    <pre> 
+        <!-- pre는 Markdown의 ```과 같은 역할을 합니다. -->
+        def func():
+        print('python')
+        
+    </pre>
+
+    <h2> link 삽입하기 </h2>
+        HTML: Hyper Text Markup Language
+
+        <h3> Anchor Tag </h3>
+
+        <a href="https://google.com"> Google </a> 을 클릭하세요
+    
+        <a href="https://naver.com" target = "_blank">Naver</a>는 새탭에서 열립니다.
+    
+        <a href="# 목적지"> 눈에 보일 목적지 </a> 
+
+    <h2> List 작성 </h2>
+
+        <h3> 순서가 있는 list </h3>
+    <ol>
+        <li> 순서가 있는 list를 작성할 때에는 </li>
+        <li> ol안에 li를 사용합니다. </li>
+
+    </ol>
+        
+        <h3> 순서가 없는 list </h3>
+        <!-- li*5하고 tab 누르면 자동으로 복사, 반복 -->
+        <li>li만 쓴 상태에서</li>
+        <li>*5를 덧붙여</li>
+        <li>li*5를 작성한 채 tab이나 enter을 누르면</li>
+        <li> list가 5개가 짜잔하고 생겨난답니다.</li>
+        <li>추가로 ctrl + enter의 편리함을 잊지 마세요</li>
+
+    <h2> Table </h2>
+    <!-- 테이블, 표 만들기 -->
+    <p> 기본적으로 table 안에 상위?제목? 이라고 할 수 있는 부분을 만들기 위한 thead를 먼저 만들고, </p>
+    <br>
+    <p> 그 안에 tr을 써서 내용물을 채웁니다</p>
+    <br>
+    <p>그 이후부터는 tbody를 만들어 채우는데, 행을 채운다고 생각하며 작성해야 합니다.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>번호</th>
+                <th>전공</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>neo</td>
+                <td>1141</td>
+                <td>컴공</td>
+            </tr>
+            <tr>
+                <td>justin</td>
+                <td>123123</td>
+                <td>심리</td>
+            </tr>
+            <tr>
+                <td>jun</td>
+                <td>9890854</td>
+                <td>수학</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2> 미디어 및 컨텐츠 넣기 </h2>
+
+    <h3> Image </h3>
+        <!-- image Tag : Inline -->
+        <img scr="./mybom.jpg" alt="사슴" >
+        <img scr="https://i.pinimg.com/736x/25/c8/ed/25c8ed6febb9769ff5d232518c457bea.jpg" alt = "레서판다">
+
+        <p> 사진이 둘 다 오류가 나네요? 왜 그런지는 저도 모르겠습니다. 언젠간 알게 되겠죠.</p>
+    
+
+    <h3> IFrame</h3>
+    <!-- 공유 > 퍼가기 를 눌렀을 때 나오는 url을 사용 -->
+    <iframe 
+    width="560" 
+    height="315" 
+    src="https://www.youtube.com/embed/VmjOKPX3PUE" 
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    allowfullscreen>
+    </iframe>
+
+    <p> 제가 제일 좋아하는 셉틴 무대입니다. 13명이서 시계를 표현하는게 천재인것 같습니다.</p>
+    
+
+</body>
+</html>

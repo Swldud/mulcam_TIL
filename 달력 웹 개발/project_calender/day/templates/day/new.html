@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> New Article </h1>
+
+<form action="/day/create/" method = "POST">
+    {% csrf_token %}
+
+<div>
+    <label for="title">일정명:</label>
+    <input type="text" id = "title" name="title">
+</div>
+
+<div>
+    <label for="time">시간:</label>
+    <input type="int" id = "time" name="time">
+</div>
+
+<div>
+    <label for="palce">장소:</label>
+    <input type="text" id = "place" name="place">
+</div>
+
+<div>
+    <label for="memo">메모:</label>
+    <textarea name="memo" id="memo" cols="30" rows="10"></textarea>
+
+</div>
+
+<div>
+    <input type="submit">
+
+</div>
+
+</form>
+
+{% endblock content %}
