@@ -2,15 +2,13 @@ from django.urls import path
 
 from . import views
 
+app_name = 'day'
+
+
 urlpatterns = [
-    path('day_def/', views.day_def, name= 'day_def'),
-
-
     # 생성을 위한 코드
-    
-    # day/new/
-    path('new/', views.new, name='new'),
-    # day/create/ [사용자 입력 데이터]
+
+    # day/create/
     path('create/', views.create, name='create'),
     
     
@@ -24,15 +22,14 @@ urlpatterns = [
     # Delete
 
     # day/숫자/delete/
-    path('<int:x>/delete/', views.delete, name = 'delete'),
+    path('<int:article_pk>/delete/', views.delete, name = 'delete'),
     # x는 숫자 변수임.
 
     # Update
-    # blog/1/edit/
-    path('<int:x>/edit/', views.edit, name = 'edit'),
-    
+
     # blog/1/update/
-    path('<int:x>/update/', views.update, name = 'update'),
+    path('<int:article_pk>/edit/', views.edit, name = 'edit'),
+
 
 
 ]

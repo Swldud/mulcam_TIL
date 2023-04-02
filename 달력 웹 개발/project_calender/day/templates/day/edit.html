@@ -4,10 +4,13 @@
 
 <h1> New Article </h1>
 
-<form action="/day/{{article.pk}}/update/" method = "POST">
+<form action="" method = "POST">
     {% csrf_token %}
 
-<div>
+    {{ form.as_p}}
+
+
+{% comment %} <div>
     <label for="title">일정명:</label>
     <input type="text" id = "title" name="title" value = "{{article.title}}">
 </div>
@@ -26,7 +29,7 @@
     <label for="memo">메모:</label>
     <textarea name="memo" id="memo" cols="30" rows="10">{{article.memo}}</textarea>
 
-</div>
+</div> {% endcomment %}
 
 <div>
     <input type="submit">

@@ -2,36 +2,44 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Article
+from .forms import ArticleForm
+
 
 # Create your views here.
 
-def day_def(request):
-    # render의 첫번째 인자 = request로 고정되어있음. 불변
-    # 두번째 인자 = 템플릿 인자 'str'
-    return render(request, 'day/day_def.html')
+# def new(request):
+#     return render(request, 'day/new.html')
 
 
+# def create(request):
+#     # 새로운 게시글(Article instance)을 생성
+
+#     article = Article()
+#     article.title = request.POST['title']
+#     article.time = request.POST['time']
+#     article.place = request.POST['place']
+#     article.memo = request.POST['memo']
 
 
+#     article.save()
 
-def new(request):
-    return render(request, 'day/new.html')
-
-
+#     # return render(request, 'day/new.html')
+#     return redirect('day:detail', article.pk)
+    
 def create(request):
-    # 새로운 게시글(Article instance)을 생성
+    if request.method == 'GET':
+        form = ArticleForm()
 
-    article = Article()
-    article.title = request.POST['title']
-    article.time = request.POST['time']
-    article.place = request.POST['place']
-    article.memo = request.POST['memo']
+    else:
+        form = ArticleForm(request.POST)
+        if form.is_valid:
+            article = form.save()
+            return redirect('day:detail', article.pk)
+        
+    return render(request, 'day/create.html', {
+        'form': form
+    })
 
-
-    article.save()
-
-    # return render(request, 'day/new.html')
-    return redirect(f'/day/{article.pk}/')
 
 def index(request):
     articles = Article.objects.all()
@@ -50,23 +58,40 @@ def detail(request, article_pk):
 
 
 
-def delete(request, x):
-    article = Article.objects.get(pk=x)
+def delete(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
     article.delete()
-    return redirect('/day/')
+    return redirect('day:index')
+    
 
 
-def edit(request, x):
-    article = Article.objects.get(pk=x)
+# def edit(request, x):
+#     article = Article.objects.get(pk=x)
+#     return render(request, 'day/edit.html', {
+#         'article': article,
+#     })
+
+# def update(request, x):
+#     article = Article.objects.get(pk=x)
+#     article.title = request.POST['title']
+#     article.time = request.POST['time']
+#     article.place = request.POST['place']
+#     article.memo = request.POST['memo']
+#     article.save()
+#     return redirect('day:detail', article.pk)
+
+def edit(request, article_pk):
+    article = Article.objects.get(pk=article_pk)
+    if request.method == 'GET':
+        form = ArticleForm(instance=article)
+        
+    elif request.method == 'POST':
+        form = ArticleForm(request.POST, instance=article)
+        if form.is_valid():
+            article = form.save()
+
+            return redirect('day:detail', article.pk)
+
     return render(request, 'day/edit.html', {
-        'article': article,
+        'form': form,
     })
-
-def update(request, x):
-    article = Article.objects.get(pk=x)
-    article.title = request.POST['title']
-    article.time = request.POST['time']
-    article.place = request.POST['place']
-    article.memo = request.POST['memo']
-    article.save()
-    return redirect(f'/day/{article.pk}/')

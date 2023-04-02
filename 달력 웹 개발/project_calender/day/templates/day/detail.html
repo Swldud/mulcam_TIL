@@ -17,23 +17,19 @@
 </p>
 
 <div>
-    <a href="/day/{{ article.pk }}/delete/">
-
+    <form action="{% url 'day:delete' article.pk %}" method ="POST">
+        {% csrf_token %}
         <button onclick="return confirm('Are you sure to delete?')"> 
             delete </button>
 
-    </a>
+    </form>
 
 </div>
 
 <div>
-    <a href="/day/{{ article.pk }}/edit/">
-
-        <button> 
-            edit </button>
-
+    <a href="{% url 'day:edit' article.pk %}">
+        <button>edit</button>
     </a>
-
 </div>
 
 
