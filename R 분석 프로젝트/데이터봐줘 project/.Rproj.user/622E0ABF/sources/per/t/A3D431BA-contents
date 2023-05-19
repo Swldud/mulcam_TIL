@@ -1,0 +1,120 @@
+# install.packages("readxl")
+library(readxl)
+library(gmodels)
+
+raw.data <- read_xlsx("C:/Users/simjiyoung/mulcam/R_TEMP/project material/210075_2021년 국민독서실태조사_성인_Rawdata.xlsx")
+
+data <- raw.data
+
+# 소득 역코딩
+data$inc_recording[data$inc==1] <- 8
+data$inc_recording[data$inc==2] <- 7
+data$inc_recording[data$inc==3] <- 6
+data$inc_recording[data$inc==4] <- 5
+data$inc_recording[data$inc==5] <- 4
+data$inc_recording[data$inc==6] <- 3
+data$inc_recording[data$inc==7] <- 2
+data$inc_recording[data$inc==8] <- 1
+
+# x,y 변수 생성 
+x <-data$inc_recording
+summary(x)
+table(x)
+
+y <- data$a031
+summary(y)
+table(y)
+
+# 적합도 검정 X-squared = 597.9, df = 28, p-value < 2.2e-16
+chisq.test(x,y)
+
+# 상관관계 확인
+cor.test(x,y) # 0.3519
+
+# 교차표 Chi^2 =  597.8995     d.f. =  28     p =  3.762807e-108 
+CrossTable(x,y, chisq = T)
+
+# 회귀식
+inc_freq<-lm(y~x) ;inc_freq  # 독서빈도(3-1) = 2.6012 +0.2635*(가구 월평균 소득(D3)) 
+summary(inc_freq) # p-value: < 2.2e-16로 모형이 유의하다. r^2 = 0.08009 만큼의 설명력을 가진다
+
+
+
+# 나이와 독서빈도-------------------
+
+library(ggplot2)
+
+ggplot(data=data,aes(group =a031,y=age1)) +geom_boxplot()
+cor(data$a031,data$age1)
+summary(lm(data$age1~data$a031))
+
+# 상관계수 0.4로 양의 상관관계가 있다고 볼 수 있음
+# y = 32.1534 + 4.2876x
+
+
+
+CrossTable(data$a031,data$age1,chisq=T)
+
+
+
+#  검정 결과 p-value가 매우 작은 값으로 나왔기 때문에 귀무가설을 기각할 수 있다. 
+# 따라서 해당 두 변수간에는 통계적으로 유의한 상관관계가 있다고 해석할 수 있다.
+data$a031 <- as.factor(data$a031)
+model <- glm(a031 ~ age1, data = data, family = binomial)
+summary(model)
+
+max(data$age1)
+
+# 나이 독서빈도 -------------
+data$age2[data$age1 < 30] <- 8
+data$age2[data$age1 < 40 & data$age1 >=30] <- 7
+data$age2[data$age1 < 50 & data$age1 >=40] <- 6
+data$age2[data$age1 < 60 & data$age1 >=50] <- 5
+data$age2[data$age1 < 70 & data$age1 >=60] <- 4
+data$age2[data$age1 < 80 & data$age1 >=70] <- 3
+data$age2[data$age1 < 90 & data$age1 >=80] <- 2
+data$age2[data$age1 < 100 & data$age1 >=90] <- 1
+
+data$age3[data$age1 < 26] <- 1
+data$age3[data$age1 < 40 & data$age1 >=26] <- 2
+data$age3[data$age1 < 61 & data$age1 >=40] <- 3
+data$age3[data$age1 < 95 & data$age1 >=61] <- 4
+
+
+x <- data$age3
+y <- data$a031
+
+chisq.test(x,y)
+CrossTable(x,y, chisq = T)
+age_freq<-lm(y~x) ; age_freq
+summary(age_freq)
+cor.test(x,y)
+# y = 2.36015 + 0.71733x + e
+# p-value: < 2.2e-16이므로 모형은 유의하다. 결정계수 r^2 = 0.1237 만큼의 설명력을 지닌다
+
+
+# 학력 독서빈도-------------
+# edu 1 = 교육을 안 받았음 ~ edu8 = 대학원 박사과정
+# 3-1번 문항의 독서빈도는 1번이 매일 5번이 전혀 이용 안 함 임
+# 가설: 학력이 낮을 수록 독서빈도가 낮을 것이다. 
+
+data$edu3[data$edu1==1] <- 8
+data$edu3[data$edu1==2] <- 7
+data$edu3[data$edu1==3] <- 6
+data$edu3[data$edu1==4] <- 5
+data$edu3[data$edu1==5] <- 4
+data$edu3[data$edu1==6] <- 3
+data$edu3[data$edu1==7] <- 2
+data$edu3[data$edu1==8] <- 1
+
+x <- data$edu3
+y <- data$a031
+
+library(ggplot2)
+ggplot(aes(data$a031, data$edu3))
+
+chisq.test(x,y)
+CrossTable(x,y, chisq = T)
+edu_freq<-lm(y~x) # y = 1.4481 + 0.5386x + e
+summary(edu_freq) # p-value: < 2.2e-16 이므로 모형이 유의미하다. r^2 = 0.1995 만큼의 설명력을 가진다. 
+cor.test(x,y)

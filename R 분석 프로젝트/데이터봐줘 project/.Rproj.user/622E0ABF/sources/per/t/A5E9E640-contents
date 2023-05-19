@@ -1,0 +1,79 @@
+# 연령별 온라인 구매와 오프라인 구매 비율 구하기 -----------
+library(dplyr)
+library(readxl)
+library(gmodels)
+
+raw.data <- read_xlsx("C:/Users/simjiyoung/mulcam/R_TEMP/project material/210075_2021년 국민독서실태조사_성인_Rawdata.xlsx")
+
+data <- raw.data
+
+head(data)
+data$buy[data$a1411 == 1]<- 1 
+data$buy[data$a1411 == 2]<- 1
+data$buy[data$a1411 == 3]<- 1
+data$buy[data$a1411 == 4]<- 1
+data$buy[data$a1411 == 5]<- 1
+data$buy[data$a1411 == 6]<- 2 # 인터넷 서점
+data$buy[data$a1411 == 7]<- 3 # 중고책 구매
+
+table(data$a1411) # 98은 6번 항목에 독서를 전혀 하지 않았다라는 의미의 0을 작성하고, 14번 항목에는 답을 한 경우 결측치로 인식하기 위해 입력한 것 같음!
+
+data$age3[data$age1 < 36] <- 1
+data$age3[data$age1 < 61 & data$age1 >=36] <- 2
+data$age3[data$age1 < 95 & data$age1 >=61] <- 3
+
+# data_age_1 <- subset(data, age3 ==1)
+# data_age_2 <- subset(data, age3 ==2)
+# data_age_3 <- subset(data, age3 ==3)
+
+
+# table(data_age_1$buy)
+# table(data_age_2$buy)
+# table(data_age_3$buy)
+
+cor.test(data$age3,data$buy)
+
+df <- data.frame(data$age3, data$buy)
+table(df)
+prop.table(table(df)) # 전체 합계 기준 비율빈도
+prop.table(table(df),1) # 행기준 비율빈도
+
+
+# 연령별 종이책과 전자책 및 오디오북의 이용률 비교 (세훈님 작업물 이해 안돼...)------
+datasetage <- raw.data
+
+table(is.na(datasetage$a022111))
+
+datasetage$readtime <- 5*(datasetage$a022111*60+datasetage$a022112)+
+  2*(datasetage$a022121*60+datasetage$a022122)
+
+summary(datasetage$readtime)
+
+datasetage$age3[data$age1 < 36] <- 1
+datasetage$age3[data$age1 < 61 & data$age1 >=36] <- 2
+datasetage$age3[data$age1 < 95 & data$age1 >=61] <- 3
+
+datasetage$readtime<-ifelse(datasetage$readtime==3360, 0, datasetage$readtime) #3360 이상치 0으로 변경은 왜 안했지?
+
+
+
+datasetage <- datasetage[c("age3","readtime")]
+datasetage
+plot(datasetage$age3,datasetage$readtime)
+cor.test(datasetage$age3,datasetage$readtime)
+#[1] -0.1873215
+# 음의 상관관계가 존재함
+
+
+
+t.test(datasetage$age1,datasetage$readtime) #??????? 대응표본은 두 표본 간의 평균 차이가 있는지 확인하는 용도 아닌가???? 이러면 당연히 차이가 있는거 아닌가?
+# p-value < 2.2e-16이기 때문에, 두 변수간의 평균의 차이가 존재한다. 
+
+
+
+
+# 연령별 종이책과 전자책 및 오디오북의 이용률 비교(문항15!!)-----------
+
+# 연령별 종이책과 전자책의 =! 0 의 빈도수 
+# 연령별 종이책과 전자책에 쓰는 비용 비교
+
