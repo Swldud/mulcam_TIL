@@ -48,6 +48,7 @@ df_t = pd.pivot_table(df,  # 피벗할 데이터프레임
 df_t
 ```
 
+![](https://github.com/Swldud/mulcam_TIL/blob/master/python/pivot%20table%20example.png?raw=true)
 
 <br>
 
