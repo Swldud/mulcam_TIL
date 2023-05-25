@@ -58,8 +58,8 @@ titanic['embarked'].value_counts(ascending=True) # 내림차순
 - sort_values(ascending=True/False) : 데이터 값을 기준으로 정렬
 
 ```py
-df.sort_values(ascending=False)  # 데이터값 기준 내림차순 정렬
-df.sort_index(ascending=True)  # 인덱스 기준 오름차순 정렬
+df.sort_values(by= 정렬기준,ascending=False)  # 데이터값 기준 내림차순 정렬
+df.sort_index(by = 정렬기준,ascending=True)  # 인덱스 기준 오름차순 정렬
 
 df1.sort_values(by=[0, 2], ascending=False)  # 0열과 2열만 내림차순 정렬
 ```
@@ -155,7 +155,7 @@ ctgs = pd.cut(data, bins,labels=labels)  # cut을 사용하면 Categorical 형�
 ctg_df = pd.DataFrame({'나이':ages,'연령대':ctgs})  # 데이터 프레임으로 보려면 이렇게
 
 ```
-#### 9. codes : 범주화 자룔를 숫자로 인코딩
+#### 9. codes : 범주화 자료를 숫자로 인코딩
 
 - 결측값은 -1로 치환함
 - labels에 작성한 순서대로 0부터 할당

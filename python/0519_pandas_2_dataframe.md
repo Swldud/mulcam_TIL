@@ -81,6 +81,18 @@ df[['열이름']]  # 위에 것과 다르게 dataframe 형태로 출력됨.
 df.loc[:,'열이름']
 df.iloc[:,'열번호']
 
+# 연속되는 여러 개의 열을 선택
+df.loc[:, '시작하는 열이름':'끝나는 열이름']
+
+# 여러 개의 열을 선택하고 계산까지 하는 경우
+
+df['새로운 열이름'] = df.sum(axis = 1, numeric_only=True)  # 숫자가 아닌 값이 섞여있는데 실행하면 오류남
+# or
+df['새로운 열이름'] = df.loc[:, '시작하는 열이름':'끝나는 열이름'].sum(axis=1)
+# or
+df['새로운 열이름'] = df.iloc[:, start_num:end_num].sum(axis=1)
+
+
 ```
 
 - 행 추출
@@ -105,7 +117,6 @@ df.iloc[['행번호']]  # dataframe 형태로 나오게 하려면 [] 한 번 더
 ```py
 df['열이름']['행이름']
 df.loc['행이름','열이름']
-
 
 ```
 
@@ -137,6 +148,7 @@ df.loc[] = ''
 
 - 행 삭제
 ```py
+df5.drop([0])  # 인덱스 기본 번호
 df5.drop('광주',axis=0, inplace = True)  # inplace는 원본데이터에 적용할지 여부. False가 기본
 df5.drop(['서울','대구'], axis=0, inplace =True)  # 여러 개 삭제 시, 리스트로 만들어서!
 df5.drop(df5.index[1:3], inplace=True, axis = 0)  # 여러 개 삭제 시, 슬라이싱 사용도 가능
@@ -146,7 +158,8 @@ df5.drop(df5.index[1:3], inplace=True, axis = 0)  # 여러 개 삭제 시, 슬�
 ```py
 df5.drop('2015', axis=1, inplace =True)
 df5.drop(['2015','2010'], axis=1, inplace =True)
-df5.drop(df5.index[1:3], inplace=True, axis = 1)
+df5.drop(df5.index[1:3], inplace=True, axis = 1)  # index 명이 숫자일 때   
+df5.drop(df5.columns[1:3], axis =1)  # index에 특정 이름이 있을 때
 
 del df5['2015']
 ```
@@ -167,21 +180,29 @@ df5['2005']['대구'] = 2500000
 ## 추가적인 내용
 
 ### csv / excel 파일 열기
+- !pip install openpyxl
 
 #### read_csv() / read_excel() 함수의 주요 파라미터
 - sep : 각 데이터 값을 구별하기 위한 구분자(separator) 설정
 - header : 헤더(제목) 위치. header를 작성하지 않으면 첫 행이 헤더가 되고, header = None으로 입력하면 숫자로 입력됨. 
 - skiprows : 제외하는 행 지정
-- thousands : 천 단위 구분 표시 제거
+- thousands = ',' : 천 단위 구분 표시 제거
 - **index_col : index로 사용할 열 설정**
 - **usecols : 선택 열 지정**
 - encoding : 인코딩 설정 
     (utf-8f로 저장된 파일은 encodin='utf-8'
      euc-kr로 저장된 파일은 encodin='euc-kr'로 해야 오류 없음)
+- usecols = ''  : B, J, K, L, N 과 같은 엑셀에서의 열의 넘버?를 작성하면 특정 열만 추출해서 가져올 수 있음
 
 ```py
 df_train2 = pd.read_csv('data/train.csv',
                         usecols= ['PassengerId','Survived','Name','Sex','Age'],  # 열 이름 짓기
                         index_col = 'PassengerId')  # index로 사용할 열
 ```
+
+#### .to_csv()
+- index = T/F에 따라 열의 인덱스 저장 여부 선택
+  <br>
+  기본형이 index = True임. 만약 인덱스가 기본적으로 작성되는 숫자 인덱스로 이루어져 있었다면, 자동으로 unnamed 열이 생김. 
+
 
