@@ -60,7 +60,7 @@ new_data = old_data.열이름.str.slice(start=num1, stop=num2) # start ~ end+1
 ```
 
 ## str.replace()
-: 특정 문자를 대체하기 위해 사용
+: 특정 문자를 대체하기 위해 사용 (특정 문자를 공백으로 바꾸어서 제거함.)
 
 - method
     - regex (정규표현식)
