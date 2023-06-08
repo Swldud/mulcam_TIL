@@ -104,7 +104,7 @@ def get_page_webtoon(url):
             'title': title,
             'author': author,
             'rating': rating,
-            'view': view,
+            'view': view
         }, index=range(1))
         
         df = pd.concat([df, webtoon], ignore_index=True)

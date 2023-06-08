@@ -67,7 +67,7 @@ import bs4
 
 ```py
 url = "원하는 사이트 url"
-html = "urlopen(url)
+html = urlopen(url)
 text = html.read()  # text를 확인했을 때, 한글이 깨진다면 text.decode('utf8') 추가 실행
 
 # parsing한 객체를 가져오기 (beutifulsoup)
